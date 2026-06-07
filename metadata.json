@@ -1,0 +1,5 @@
+{
+  "name": "Attrition Predictor",
+  "description": "Hệ thống dự báo rủi ro nghỉ việc sớm của người lao động dựa trên dữ liệu sử dụng app và hành vi chấm công.",
+  "requestFramePermissions": []
+}
