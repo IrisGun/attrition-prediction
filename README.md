@@ -31,16 +31,18 @@ High-level flow:
 
 ## Repository Structure
 
-- [src/App.tsx](src/App.tsx): Main dashboard UI
-- [src/main.tsx](src/main.tsx): React entry point
+- `src/`
+  - [src/App.tsx](src/App.tsx): Main dashboard UI
+  - [src/main.tsx](src/main.tsx): React entry point
 - [server.ts](server.ts): Express server and API routes
-- [ml/run_pipeline.py](ml/run_pipeline.py): End-to-end ML orchestration
-- [ml/data_gen.py](ml/data_gen.py): Synthetic raw data generation
-- [ml/feature_engineering.py](ml/feature_engineering.py): Snapshot-based feature creation
-- [ml/drift_detection.py](ml/drift_detection.py): Drift detection with KS test
-- [ml/models.py](ml/models.py): Model classes and model comparison
-- [ml/train_eval.py](ml/train_eval.py): Training and evaluation workflow
-- [ml/inference.py](ml/inference.py): Risk scoring and prediction artifact export
+- `ml`
+  - [ml/run_pipeline.py](ml/run_pipeline.py): End-to-end ML orchestration
+  - [ml/data_gen.py](ml/data_gen.py): Synthetic raw data generation
+  - [ml/feature_engineering.py](ml/feature_engineering.py): Snapshot-based feature creation
+  - [ml/drift_detection.py](ml/drift_detection.py): Drift detection with KS test
+  - [ml/models.py](ml/models.py): Model classes and model comparison
+  - [ml/train_eval.py](ml/train_eval.py): Training and evaluation workflow
+  - [ml/inference.py](ml/inference.py): Risk scoring and prediction artifact export
 - [attrition_ml_flow.py](attrition_ml_flow.py): Standalone prototype flow (separate from runtime API flow)
 - [main.py](main.py): Minimal Python entry sample
 - [vite.config.ts](vite.config.ts): Vite config
@@ -112,9 +114,7 @@ Start the application in development mode:
 npm run dev
 ```
 
-Server runs on:
-
-- http://localhost:3000
+Server runs on: `http://localhost:3000`
 
 In development, Express runs Vite in middleware mode, so frontend and API are served together.
 
@@ -122,40 +122,34 @@ In development, Express runs Vite in middleware mode, so frontend and API are se
 
 Defined in [package.json](package.json):
 
-- npm run dev: Start Express + Vite middleware
-- npm run build: Build frontend production bundle
-- npm run preview: Preview built frontend
-- npm run clean: Remove dist folder
-- npm run lint: TypeScript type check (no emit)
+- `npm run dev`: Start Express + Vite middleware
+- `npm run build`: Build frontend production bundle
+- `npm run preview`: Preview built frontend
+- `npm run clean`: Remove dist folder
+- `npm run lint`: TypeScript type check (no emit)
 
 ## API Endpoints
 
-### GET /api/health
+`GET /api/health`
 
-Returns service status.
+- Returns service status.
+- Response example:
+  - status: ok
 
-Response example:
+`GET /api/ml/predictions`
 
-- status: ok
+- Returns current prediction artifact from ML output.
+- Behavior:
+  - If prediction artifact exists, returns real data
+  - If artifact does not exist yet, returns fallback mock data
 
-### GET /api/ml/predictions
+`POST /api/ml/run`
 
-Returns current prediction artifact from ML output.
-
-Behavior:
-
-- If prediction artifact exists, returns real data
-- If artifact does not exist yet, returns fallback mock data
-
-### POST /api/ml/run
-
-Triggers full ML pipeline execution through a Python subprocess.
-
-Behavior:
-
-- Runs the pipeline orchestrator
-- Returns success message and pipeline stdout
-- Returns error details if pipeline fails
+- Triggers full ML pipeline execution through a Python subprocess.
+- Behavior:
+  - Runs the pipeline orchestrator
+  - Returns success message and pipeline stdout
+  - Returns error details if pipeline fails
 
 ## ML Pipeline
 
